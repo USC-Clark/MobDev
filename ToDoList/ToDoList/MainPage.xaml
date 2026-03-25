@@ -1,0 +1,114 @@
+﻿<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ToDoList.MainPage"
+    BackgroundColor="#0F172A">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- HEADER -->
+        <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="10">
+            <Label Text="TO DO"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#38BDF8"/>
+
+            <Label Text="Stay organized. Stay productive."
+                   FontSize="14"
+                   TextColor="#E2E8F0"/>
+
+            <BoxView HeightRequest="1"
+                     BackgroundColor="#1E293B"/>
+        </VerticalStackLayout>
+
+        <!-- LIST -->
+        <CollectionView x:Name="todoLV"
+                        Grid.Row="1"
+                        Margin="10"
+                        SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#38BDF8"
+                            BackgroundColor="#1E293B"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="10"
+                            Margin="0,5">
+
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <VerticalStackLayout>
+                                <Label Text="{Binding title}"
+                                       TextColor="#E2E8F0"
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding detail}"
+                                       TextColor="#94A3B8"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="1" Spacing="5">
+                                <Button Text="✏️"
+                                        BackgroundColor="Transparent"
+                                        Clicked="EditToDoItem"
+                                        ClassId="{Binding id}"/>
+
+                                <Button Text="🗑"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#38BDF8"
+                                        Clicked="DeleteToDoItem"
+                                        ClassId="{Binding id}"/>
+                            </HorizontalStackLayout>
+
+                        </Grid>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- INPUT -->
+        <Grid Grid.Row="2"
+              BackgroundColor="#1E293B"
+              Padding="10"
+              ColumnDefinitions="*,Auto">
+
+            <VerticalStackLayout>
+                <Entry x:Name="titleEntry"
+                       Placeholder="Title"
+                       TextColor="#E2E8F0"
+                       PlaceholderColor="#94A3B8"/>
+
+                <Editor x:Name="detailsEditor"
+                        Placeholder="Details"
+                        TextColor="#E2E8F0"
+                        PlaceholderColor="#94A3B8"
+                        HeightRequest="80"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1">
+                <Button x:Name="addBtn"
+                        Text="Add"
+                        BackgroundColor="#38BDF8"
+                        TextColor="#0F172A"
+                        Clicked="AddToDoItem"/>
+
+                <Button x:Name="editBtn"
+                        Text="Save"
+                        IsVisible="False"
+                        BackgroundColor="#FACC15"
+                        Clicked="SaveEdit"/>
+
+                <Button x:Name="cancelBtn"
+                        Text="Cancel"
+                        IsVisible="False"
+                        BackgroundColor="#F87171"
+                        Clicked="CancelEdit"/>
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
